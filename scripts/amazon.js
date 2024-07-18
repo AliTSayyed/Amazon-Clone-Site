@@ -1,34 +1,9 @@
-// store the data for each product as objects in a list
-const products = [{
-  image: 'images/products/athletic-cotton-socks-6-pairs.jpg',
-  name: 'Black and Gray Athletic Cotton Socks - 6 Pairs',
-  rating: {
-    stars: 4.5,
-    count: 87
-  },
-  priceCents: 1090
-}, {
-  image: 'images/products/intermediate-composite-basketball.jpg',
-  name: 'Intermediate Size Basketball',
-  rating: {
-    stars: 4.0,
-    count: 127
-  },
-  priceCents: 2095
-}, {
-  image: 'images/products/adults-plain-cotton-tshirt-2-pack-teal.jpg',
-  name: 'Adults Plain Cotton T-Shirt - 2 Pack',
-  rating: {
-    stars: 4.5,
-    count: 56
-  },
-  priceCents: 799
-}];
+// store the data for each product as objects in a list (list is in the data/products.js file)
 
 // create a var to hold the string of all the product's html
 let productsHTMl = '';
 
-// loop through each product and generate html
+// loop through each product in the product list and generate html for each product 
 products.forEach((product) => {
   productsHTMl += `
     <div class="product-container">
@@ -84,4 +59,5 @@ products.forEach((product) => {
 
 console.log(productsHTMl);
 
+// use the dom to modify the html with the generated product's html
 document.querySelector('.js-products-grid').innerHTML = productsHTMl;
