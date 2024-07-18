@@ -50,14 +50,47 @@ products.forEach((product) => {
         Added
       </div>
 
-      <button class="add-to-cart-button button-primary">
+      <button class="add-to-cart-button button-primary js-add-to-cart"
+      data-product-id="${product.id}">
         Add to Cart
       </button>
     </div>
   `;
 });
 
-console.log(productsHTMl);
-
 // use the dom to modify the html with the generated product's html
 document.querySelector('.js-products-grid').innerHTML = productsHTMl;
+
+// use the dom to add an event listener when add to cart is pressed 
+// use querySelectorAll since there will be a list of add to cart buttons (for each product)
+document.querySelectorAll('.js-add-to-cart')
+  .forEach((button) => {
+    button.addEventListener('click', () => {
+      // each time a button is pressed, save the name of the product to the cart
+      // use the data- attribute in html to get the product ID for any add to cart button pressed. 
+      const productId = button.dataset.productId;
+
+      // set undefinded var if item already exists in the cart (do not want to add it again to the cart)
+      let matchingItem;
+
+      // check if product is already in the cart array
+      // the cart array variable is from the data/cart.js file
+      cart.forEach((item) => {
+        if (productId === item.productId) {
+          matchingItem = item;
+        }
+      });
+
+      // increment the quantity of the item if it is already in the cart
+      if (matchingItem) {
+        matchingItem.quantity += 1;
+      } else {
+        // if the product is not in the cart, add it. 
+        cart.push({
+          productId: productId,
+          quantity: 1
+        });
+      }
+      console.log(cart);
+    });
+  });
