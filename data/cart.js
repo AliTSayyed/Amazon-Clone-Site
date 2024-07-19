@@ -1,11 +1,23 @@
 // when add to cart it pressed, items are added to the cart list as objects containing an ID and a quantity. 
-export let cart = [{
-  productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
-  quantity: 2
-}, {
-  productId:'15b6fc6f-327a-4ec4-896f-486349e85a3d',
-  quantity: 1
-}];
+// the cart should contain the local storage cart items, need to parse the JSON string back to a list data. 
+export let cart = JSON.parse(localStorage.getItem('cart'));
+
+// if the cart is null then give it this default items
+if (!cart) {
+  cart = [{
+    productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
+    quantity: 2
+  }, {
+    productId:'15b6fc6f-327a-4ec4-896f-486349e85a3d',
+    quantity: 1
+  }];
+}
+
+// use local storage to save the cart
+// Json will stringify the cart so it can be saved to storage
+function saveToStorage(){
+  localStorage.setItem('cart', JSON.stringify(cart));
+}
 
 export function addToCart(productId) {
   // set undefinded var if item already exists in the cart (do not want to add it again to the cart)
@@ -29,6 +41,8 @@ export function addToCart(productId) {
       quantity: 1
     });
   }
+  // save updated cart to local storage
+  saveToStorage();
 }
 
 // when the delete button is pressed on the checkout page, use this function to remove the item from the cart 
@@ -42,4 +56,6 @@ export function removeFromCart(productId){
   });
 
   cart = newCart;
+   // save updated cart to local storage
+  saveToStorage();
 }
