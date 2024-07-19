@@ -1,5 +1,5 @@
 // when add to cart it pressed, items are added to the cart list as objects containing an ID and a quantity. 
-export const cart = [{
+export let cart = [{
   productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
   quantity: 2
 }, {
@@ -29,4 +29,17 @@ export function addToCart(productId) {
       quantity: 1
     });
   }
+}
+
+// when the delete button is pressed on the checkout page, use this function to remove the item from the cart 
+export function removeFromCart(productId){
+  const newCart = [];
+
+  cart.forEach((cartItem)=>{
+    if (cartItem.productId !== productId){
+      newCart.push(cartItem);
+    }
+  });
+
+  cart = newCart;
 }
