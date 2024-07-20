@@ -2,3 +2,24 @@ Main idea of JavaScript
 1. Save the data 
 2. Generate the HTML
 2. Make the HTML interactive
+
+Modules
+1. need to add a type module to the script html tag
+2. need to write export infront of var/function you want to use in a seperate file
+3. need to write import {var} from './filepath/' at the top of the js file to import a module. 
+
+LocalStorage
+1. To use local storage use the local storage function like so:
+  localStorage.setItem('cart', JSON.stringify(cart));
+The item must be a string and the second paramater should be a JSON format of the data. Use JSON.stringify to convert the data into JSON
+2. Use local storage when you update some data on the page
+3. To retrieve local storage you need to parse the local JSON storage like so:
+   JSON.parse(localStorage.getItem('cart'));
+The name in get item should be the same string name as in setItem. This will parse the string back into a JS data structure/var/object. 
+
+External Library
+1. Code that exists outside of the project files. 
+2. Create a script tag in the html with a src attirbute.
+3. The link in the src attribute should be the link to the external library. 
+4. Better way to use an external library is to import the esm version of the library as a module in your js file. (Avoid naming conflicts).
+(some librarys may not have an esm version so will need to use the script tag method).
