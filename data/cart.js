@@ -2,6 +2,7 @@
 // the cart should contain the local storage cart items, need to parse the JSON string back to a list data. 
 export let cart = JSON.parse(localStorage.getItem('cart'));
 
+
 // if the cart is null then give it this default items
 if (!cart) {
   cart = [{
@@ -41,7 +42,7 @@ export function addToCart(productId) {
     cart.push({
       productId: productId,
       quantity: 1,
-      deliverOptionId: '1'
+      deliveryOptionId: '1'
     });
   }
   // save updated cart to local storage
@@ -60,5 +61,20 @@ export function removeFromCart(productId){
 
   cart = newCart;
    // save updated cart to local storage
+  saveToStorage();
+}
+
+// create ability to update delivery when a new option is selected 
+export function updateDeliveryOption(productId, deliveryOptionId){
+  let matchingItem;
+  cart.forEach((cartItem) => {
+    if (productId === cartItem.productId) {
+      matchingItem = cartItem;
+    }
+  });
+
+  matchingItem.deliveryOptionId = deliveryOptionId;
+  
+  // save updated cart's delivery ID to local storage
   saveToStorage();
 }
