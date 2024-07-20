@@ -1,34 +1,22 @@
 // creating the checkout page 
 import { cart, removeFromCart, updateDeliveryOption } from '../../data/cart.js'; // named export
-import { products } from '../../data/products.js';
+import { products, getProducts } from '../../data/products.js';
 import { formatCurrency } from '../utils/money.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'; // default export does not need {}
-import { deliveryOptions } from '../../data/deliveryOptions.js';
+import { deliveryOptions, getDeliveryOption} from '../../data/deliveryOptions.js';
 
 // run all the code with this function
 export function renderOrderSummary() {
   let cartSummaryHTML = '';
 
   cart.forEach((cartItem) => {
-    const productID = cartItem.productId;
+    const productId = cartItem.productId;
 
-    let matchingProduct;
-
-    products.forEach((product) => {
-      if (product.id == productID) {
-        matchingProduct = product;
-      }
-    });
+    const matchingProduct = getProducts(productId);
 
     const deliveryOptionId = cartItem.deliveryOptionId;
 
-    let deliveryOption;
-
-    deliveryOptions.forEach((option => {
-      if (option.id === deliveryOptionId) {
-        deliveryOption = option;
-      }
-    }));
+    const deliveryOption = getDeliveryOption(deliveryOptionId);
 
     const today = dayjs();
     const deliveryDate = today.add(deliveryOption.deliveryDays, 'days');
@@ -128,7 +116,7 @@ export function renderOrderSummary() {
       element.addEventListener('click', () => {
         const { productId, deliveryOptionId } = element.dataset;
         updateDeliveryOption(productId, deliveryOptionId);
-        // run entire code again with the update cart properties (will update all the html)
+        // run entire code again with the updated cart properties and payment summary (will update all the html)
         renderOrderSummary();
       });
     });
