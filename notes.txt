@@ -23,3 +23,7 @@ External Library
 3. The link in the src attribute should be the link to the external library. 
 4. Better way to use an external library is to import the esm version of the library as a module in your js file. (Avoid naming conflicts).
 (some librarys may not have an esm version so will need to use the script tag method).
+
+HTML attirbutes
+1. If you want to get a property value from a html tag, need to add the data- attriubute and set it ="${variable.property}". 
+This is useful when you need to pass a propery value as a pramater in a dom / even listener 
