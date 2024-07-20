@@ -27,3 +27,10 @@ External Library
 HTML attirbutes
 1. If you want to get a property value from a html tag, need to add the data- attriubute and set it ="${variable.property}". 
 This is useful when you need to pass a propery value as a pramater in a dom / even listener 
+
+Update the data
+Regenerate the HTML
+MVC (Model-View-Controller) makes sure the page always matches the data, it is a design pattern 
+1. Model = saves and manages the data
+2. View = takes the data and displays it on the page
+3. Controller = runs some code when we interact with the page (ex: event listeners)
