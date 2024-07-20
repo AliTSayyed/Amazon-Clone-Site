@@ -4,6 +4,7 @@ import { products, getProducts } from '../../data/products.js';
 import { formatCurrency } from '../utils/money.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'; // default export does not need {}
 import { deliveryOptions, getDeliveryOption} from '../../data/deliveryOptions.js';
+import { renderPaymentSummary } from './paymentSummary.js';
 
 // run all the code with this function
 export function renderOrderSummary() {
@@ -107,6 +108,9 @@ export function renderOrderSummary() {
         // first remove item from cart, then remove item from page using the dom. Remove the div that starts the html. 
         const contianer = document.querySelector(`.js-cart-item-container-${productId}`);
         contianer.remove();
+        
+        // update the payment summary when an item is deleted from the cart.
+        renderPaymentSummary();
       });
     });
 
@@ -118,6 +122,8 @@ export function renderOrderSummary() {
         updateDeliveryOption(productId, deliveryOptionId);
         // run entire code again with the updated cart properties and payment summary (will update all the html)
         renderOrderSummary();
+        // update the payment summary when a delivery option is changed. 
+        renderPaymentSummary();
       });
     });
 }
