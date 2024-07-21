@@ -12,7 +12,7 @@ LocalStorage
 1. To use local storage use the local storage function like so:
   localStorage.setItem('cart', JSON.stringify(cart));
 The item must be a string and the second paramater should be a JSON format of the data. Use JSON.stringify to convert the data into JSON
-2. Use local storage when you update some data on the page
+2. Use local storage when you update some data on the paged 
 3. To retrieve local storage you need to parse the local JSON storage like so:
    JSON.parse(localStorage.getItem('cart'));
 The name in get item should be the same string name as in setItem. This will parse the string back into a JS data structure/var/object. 
@@ -34,3 +34,6 @@ MVC (Model-View-Controller) makes sure the page always matches the data, it is a
 1. Model = saves and manages the data
 2. View = takes the data and displays it on the page
 3. Controller = runs some code when we interact with the page (ex: event listeners)
+
+Automated tests
+1. Instead of manually checking your code by checking your site, create a test js file where you check if your code passes certain tests. 
