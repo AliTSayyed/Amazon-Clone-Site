@@ -1,4 +1,4 @@
-import {formatCurrency} from '../scripts/utils/money.js';
+import {formatCurrency} from '../../scripts/utils/money.js';
 
 // describe function creates a test suite in jasmine
 // can use the describe function inside a describe function to further organize the tests

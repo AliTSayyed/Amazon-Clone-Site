@@ -1,19 +1,23 @@
-// when add to cart it pressed, items are added to the cart list as objects containing an ID and a quantity. 
-// the cart should contain the local storage cart items, need to parse the JSON string back to a list data. 
-export let cart = JSON.parse(localStorage.getItem('cart'));
+// function to create a cart from local storage
+export let cart;
+loadFromStorage();
+export function loadFromStorage() {
+  // when add to cart it pressed, items are added to the cart list as objects containing an ID and a quantity. 
+  // the cart should contain the local storage cart items, need to parse the JSON string back to a list data. 
+  cart = JSON.parse(localStorage.getItem('cart'));
 
-
-// if the cart is null then give it this default items
-if (!cart) {
-  cart = [{
-    productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
-    quantity: 2,
-    deliveryOptionId: '1'
-  }, {
-    productId: '15b6fc6f-327a-4ec4-896f-486349e85a3d',
-    quantity: 1,
-    deliveryOptionId: '2'
-  }];
+  // if the cart is null then give it this default items
+  if (!cart) {
+    cart = [{
+      productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
+      quantity: 2,
+      deliveryOptionId: '1'
+    }, {
+      productId: '15b6fc6f-327a-4ec4-896f-486349e85a3d',
+      quantity: 1,
+      deliveryOptionId: '2'
+    }];
+  }
 }
 
 // use local storage to save the cart
