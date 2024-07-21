@@ -37,3 +37,5 @@ MVC (Model-View-Controller) makes sure the page always matches the data, it is a
 
 Automated tests
 1. Instead of manually checking your code by checking your site, create a test js file where you check if your code passes certain tests. 
+
+Testing Framework = external library that helps us write tests easier. 
