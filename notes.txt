@@ -41,3 +41,6 @@ Automated tests
 Testing Framework = external library that helps us write tests easier. 
 1. Flaky test = test that sometimes passes and sometimes fails. This is because something can be stored in local storage and can effect what the initial test case is. \
 2. Mocks = lets us replace a method with a fake version. 
+3. Unit test = testing 1 piece of the code (ex: testing a certain function)
+4. Integration Test = tests many units/pieces of code working together 
+5. Hooks = lets us run some code for each test.
