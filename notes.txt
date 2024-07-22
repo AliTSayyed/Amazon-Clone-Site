@@ -66,3 +66,5 @@ Promises
 3. let us wait for some code to finish before going to the next step
 4. allows javascript ot do multiple things at the same time
 5. promises flatten the code (doesnt have much nesting unlike callbacks)
+6. async makes a function return a promise
+7. await is a shortcut for the .then() function. Can only use await inside of async

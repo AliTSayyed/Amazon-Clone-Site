@@ -1,10 +1,26 @@
 import { renderOrderSummary } from "./checkout/orderSummary.js";
 import { renderPaymentSummary } from "./checkout/paymentSummary.js";
-import { loadProducts, loadProductsFetch } from "../data/products.js";
+import { loadProductsFetch } from "../data/products.js";
 import { loadCart } from "../data/cart.js";
 //import'../data/cart-class.js'; // runs everything in this file without calling an item to import 
 //import '../data/backend-practice.js';
+
+async function loadPage(){ // short cut notation for creating a promise
+  await loadProductsFetch(); // await lets us write asynchronous code like normal code, only works on promises.
+  
+  await new Promise((resolve) => { 
+    loadCart(() => {
+      resolve();
+    });
+  })
+
+  renderOrderSummary();
+  renderPaymentSummary();
+}
+
+loadPage();
  
+/*
 // Use Promise.all to run multiple promises before moving onto the code you want to run
 Promise.all([
   loadProductsFetch(), 
@@ -19,7 +35,7 @@ Promise.all([
   renderPaymentSummary();
 });
 
-
+*/
 
 /*
 // use built in class promise for asynchronous code

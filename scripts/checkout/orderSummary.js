@@ -1,6 +1,6 @@
 // creating the checkout page 
 import { cart, removeFromCart, updateDeliveryOption } from '../../data/cart.js'; // named export
-import { products, getProducts } from '../../data/products.js';
+import { getProducts } from '../../data/products.js';
 import { formatCurrency } from '../utils/money.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'; // default export does not need {}
 import { deliveryOptions, getDeliveryOption} from '../../data/deliveryOptions.js';
