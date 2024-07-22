@@ -49,3 +49,8 @@ Process
 1. Make changes to the code
 2. Run the automated tests 
 3. Push to git
+
+OOP
+1. object groups related pieces of code and organizes them into an object 
+2. class is a better way to generate objects in oop instead of constantly creating new objects with slightly different values
+3. class is a blueprint for objects. 
