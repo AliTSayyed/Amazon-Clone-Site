@@ -54,3 +54,4 @@ OOP
 1. object groups related pieces of code and organizes them into an object 
 2. class is a better way to generate objects in oop instead of constantly creating new objects with slightly different values
 3. class is a blueprint for objects. 
+4. Polymorphism = use a method without knowing the class it is from becasue of inheritance
