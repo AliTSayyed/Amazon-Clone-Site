@@ -1,12 +1,16 @@
 // Importing variables without needing to create a script tag in the html. '../' refers to exiting the current file and going to the main folder. 
 // Importing modules helps avoid naming conflicts.
 import { cart, addToCart } from '../data/cart.js';
-import { products, loadProducts } from '../data/products.js';
+import { products, loadProducts, loadProductsFetch } from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
 
 // load the data for each product as objects in a list (list is from backend).
-loadProducts(renderProductsGrid);
+// loadProducts(renderProductsGrid);
 
+// use fetch to load page 
+loadProductsFetch().then(()=>{
+  renderProductsGrid();
+});
 function renderProductsGrid() {
 
   // create a var to hold the string of all the product's html

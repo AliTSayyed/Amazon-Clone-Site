@@ -1,6 +1,6 @@
 import { renderOrderSummary } from "../../scripts/checkout/orderSummary.js";
 import { loadFromStorage, cart } from '../../data/cart.js';
-import { loadProducts } from "../../data/products.js";
+import { loadProducts, loadProductsFetch } from "../../data/products.js";
 
 // 1. test how the page looks
 // 2. test how the page behaves 
@@ -11,9 +11,9 @@ describe('test suite: renderOrderSummary', () => {
   // done function makes the hook wait for the inner function to finish before being able to move on to the next lines of code
   // need to wait for the products to actually load before moving on to next lines of code
   beforeAll((done)=>{
-    loadProducts(() =>{
-      done(); // waits for loadProducts to finish
-    });
+    loadProductsFetch().then(()=>{
+      done();
+    })
   });
 
   // before each hook function runs prerequisite code before the actual tests can be done 
