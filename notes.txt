@@ -59,3 +59,10 @@ OOP
 2. class is a better way to generate objects in oop instead of constantly creating new objects with slightly different values
 3. class is a blueprint for objects. 
 4. Polymorphism = use a method without knowing the class it is from becasue of inheritance
+
+Promises
+1. Better way to handle asynchronous code
+2. similar to done() function in jasmine
+3. let us wait for some code to finish before going to the next step
+4. allows javascript ot do multiple things at the same time
+5. promises flatten the code (doesnt have much nesting unlike callbacks)
