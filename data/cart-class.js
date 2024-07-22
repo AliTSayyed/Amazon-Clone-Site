@@ -1,18 +1,18 @@
 // Better way of oop, create a class that has properties and methods
 class Cart {
-  cartItems;
-  localStorageKey;
+  cartItems; // a property without a # is a public property key
+  #localStorageKey; // a # symbol means this is a private property key
 
   constructor(localStorageKey) {
-    this.localStorageKey = localStorageKey;
+    this.#localStorageKey = localStorageKey;
     // runs the default case of the method when object is created. loads cart with default items. 
-    this.loadFromStorage();
+    this.#loadFromStorage();
   }
 
-  loadFromStorage() {
+  #loadFromStorage() { // can also add a # symbol infront of a method to make it private 
     // when add to cart it pressed, items are added to the cart list as objects containing an ID and a quantity. 
     // the cart should contain the local storage cart items, need to parse the JSON string back to a list data. 
-    this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey));
+    this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey));
 
     // if the cart is null then give it this default items
     if (!this.cartItems) {
@@ -31,7 +31,7 @@ class Cart {
   // use local storage to save the cart
   // Json will stringify the cart so it can be saved to storage
   saveToStorage() {
-    localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems));
+    localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems));
   }
 
   addToCart(productId) {
