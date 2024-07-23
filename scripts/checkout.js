@@ -6,16 +6,21 @@ import { loadCart } from "../data/cart.js";
 //import '../data/backend-practice.js';
 
 async function loadPage(){ // short cut notation for creating a promise
-  await loadProductsFetch(); // await lets us write asynchronous code like normal code, only works on promises.
+  try {
+    await loadProductsFetch(); // await lets us write asynchronous code like normal code, only works on promises.
   
-  await new Promise((resolve) => { 
-    loadCart(() => {
-      resolve();
-    });
-  })
+    await new Promise((resolve) => { 
+      loadCart(() => {
+        resolve();
+      });
+    })
 
-  renderOrderSummary();
-  renderPaymentSummary();
+    renderOrderSummary();
+    renderPaymentSummary();
+  } catch (error) {
+    console.log('Unexpected error. Please try again later.' + error);
+  }
+  
 }
 
 loadPage();
