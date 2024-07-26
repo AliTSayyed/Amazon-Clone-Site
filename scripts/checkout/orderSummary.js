@@ -1,5 +1,5 @@
 // creating the checkout page 
-import { cart, removeFromCart, updateDeliveryOption } from '../../data/cart.js'; // named export
+import { cart, removeFromCart, updateDeliveryOption, numberOfCartItems } from '../../data/cart.js'; // named export
 import { getProducts } from '../../data/products.js';
 import { formatCurrency } from '../utils/money.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'; // default export does not need {}
@@ -111,6 +111,8 @@ export function renderOrderSummary() {
         
         // update the payment summary when an item is deleted from the cart.
         renderPaymentSummary();
+        // Update how many items are in the cart at the top of the checkout 
+        headerItemCount();
       });
     });
 
@@ -126,4 +128,16 @@ export function renderOrderSummary() {
         renderPaymentSummary();
       });
     });
+
+  // use the dom to update the amount of items in the checkout 
+  function headerItemCount() {
+  const numOfItems = numberOfCartItems();
+
+  document.querySelector('.js-checkout-header-middle-section')
+    .innerHTML = `
+      Checkout (<a class="return-to-home-link"
+            href="amazon.html">${numOfItems} items</a>)
+            `;
+  }
+  headerItemCount();
 }

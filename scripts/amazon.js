@@ -1,6 +1,6 @@
 // Importing variables without needing to create a script tag in the html. '../' refers to exiting the current file and going to the main folder. 
 // Importing modules helps avoid naming conflicts.
-import { cart, addToCart, productQuantities} from '../data/cart.js';
+import { cart, addToCart, productQuantities, numberOfCartItems} from '../data/cart.js';
 import { products, loadProductsFetch } from '../data/products.js';
 // import { formatCurrency } from './utils/money.js';
 
@@ -77,12 +77,13 @@ function renderProductsGrid() {
   // use the dom to modify the html with the generated product's html
   document.querySelector('.js-products-grid').innerHTML = productsHTMl;
 
+  // initial case of default items set in cart, make the cart show how many items are already there. 
+  const numOfItems =  numberOfCartItems();
+  document.querySelector('.js-cart-quantity').innerHTML = numOfItems;
+  
   function updateCartQuantity() {
     // update the amount of items displyed on the cart icon (top right of the page)
-    let cartQuantity = 0;
-    cart.forEach((cartItem) => {
-      cartQuantity += cartItem.quantity;
-    });
+    let cartQuantity = numberOfCartItems();
 
     document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
   }

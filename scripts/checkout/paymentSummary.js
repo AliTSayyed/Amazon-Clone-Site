@@ -1,4 +1,4 @@
-import {cart} from "../../data/cart.js";
+import {cart, numberOfCartItems} from "../../data/cart.js";
 import { getProducts } from "../../data/products.js";
 import { getDeliveryOption } from "../../data/deliveryOptions.js";
 import {formatCurrency} from "../utils/money.js";
@@ -21,13 +21,15 @@ export function renderPaymentSummary(){
 
   const totalCents = totalBeforeTaxCents + taxCents;
 
+  const totalItems = numberOfCartItems();
+
   const paymentSummaryHTML = `
     <div class="payment-summary-title">
         Order Summary
       </div>
 
     <div class="payment-summary-row">
-      <div>Items (3):</div>
+      <div>Items (${totalItems}):</div>
       <div class="payment-summary-money">$${formatCurrency(productPriceCents)}
       </div>
     </div>

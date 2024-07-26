@@ -31,6 +31,15 @@ function saveToStorage() {
   localStorage.setItem('cart', JSON.stringify(cart));
 }
 
+// calculate how many items are in the cart (sum of the quantity of each unique item in the cart)
+export function numberOfCartItems() {
+  let numberOfItems = 0;
+  cart.forEach((cartItem) => {
+    numberOfItems += cartItem.quantity;
+  });
+  return numberOfItems;
+}
+
 export function addToCart(productId) {
   // set undefinded var if item already exists in the cart (do not want to add it again to the cart)
   let matchingItem;
@@ -56,12 +65,12 @@ export function addToCart(productId) {
 
   // increment the quantity of the item if it is already in the cart
   if (matchingItem) {
-    matchingItem.quantity += quantityProduct || 1;
+    matchingItem.quantity += Number (quantityProduct) || 1;
   } else {
-    // if the product is not in the cart, add it. 
+    // if the product is not in the cart, add it. Must use a Number type cast to avoid string concatenation. 
     cart.push({
       productId: productId,
-      quantity: quantityProduct || 1,
+      quantity: Number (quantityProduct) || 1,
       deliveryOptionId: '1'
     });
   }
