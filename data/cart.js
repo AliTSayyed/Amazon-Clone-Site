@@ -1,6 +1,11 @@
 // function to create a cart from local storage
 export let cart;
+
+// create a list of objects that contain productId and the quanity of product to add to cart
+export let productQuantities = [];
+
 loadFromStorage();
+
 export function loadFromStorage() {
   // when add to cart it pressed, items are added to the cart list as objects containing an ID and a quantity. 
   // the cart should contain the local storage cart items, need to parse the JSON string back to a list data. 
@@ -29,6 +34,17 @@ function saveToStorage() {
 export function addToCart(productId) {
   // set undefinded var if item already exists in the cart (do not want to add it again to the cart)
   let matchingItem;
+  // set undefined var to determine how much of the product to add to the cart. 
+  let quantityProduct;
+
+  // determine the quantity to add based on what the customer selected for each product. 
+  productQuantities.forEach((product) => {
+    if (product.productId === productId){
+      quantityProduct = product.quantityToAdd;
+    } else {
+      quantityProduct = 1;
+    }
+  });
 
   // check if product is already in the cart array
   // the cart array variable is from the data/cart.js file
@@ -40,12 +56,12 @@ export function addToCart(productId) {
 
   // increment the quantity of the item if it is already in the cart
   if (matchingItem) {
-    matchingItem.quantity += 1;
+    matchingItem.quantity += quantityProduct || 1;
   } else {
     // if the product is not in the cart, add it. 
     cart.push({
       productId: productId,
-      quantity: 1,
+      quantity: quantityProduct || 1,
       deliveryOptionId: '1'
     });
   }

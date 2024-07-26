@@ -1,6 +1,6 @@
 // Importing variables without needing to create a script tag in the html. '../' refers to exiting the current file and going to the main folder. 
 // Importing modules helps avoid naming conflicts.
-import { cart, addToCart } from '../data/cart.js';
+import { cart, addToCart, productQuantities} from '../data/cart.js';
 import { products, loadProductsFetch } from '../data/products.js';
 // import { formatCurrency } from './utils/money.js';
 
@@ -43,7 +43,7 @@ function renderProductsGrid() {
         </div>
 
         <div class="product-quantity-container">
-          <select>
+          <select class="js-product-quantity-selector" data-product-id="${product.id}">
             <option selected value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -101,4 +101,27 @@ function renderProductsGrid() {
         updateCartQuantity();
       });
     });
+
+  //use the dom to add multiple quantities of an item to the cart when using the select element
+  document.querySelectorAll('.js-product-quantity-selector')
+  .forEach((selector) => {
+    selector.addEventListener('change', (quantity) => {
+      const productId = selector.dataset.productId; 
+      const quantityToAdd = quantity.target.value;
+      // if the productQuantities list is empty, add the first selected quantitiy item to the list. 
+      if (productQuantities.length === 0){
+        productQuantities.push({productId, quantityToAdd});
+      }
+      // for each item on the list of productQuantities, update the new quantity to add or add the new product quanitity to the list  
+      productQuantities.forEach((product) => {
+        if (product.productId === productId) {
+          product.quantityToAdd = quantityToAdd;
+        } else {
+          productQuantities.push({productId, quantityToAdd});
+        }
+      });
+    });
+  });
+
 }
+
