@@ -1,17 +1,6 @@
 import {formatCurrency} from '../scripts/utils/money.js';
 
-export function getProducts(productId){
-  let matchingProduct;
-
-  products.forEach((product) => {
-    if (product.id == productId) {
-      matchingProduct = product;
-    }
-  });
-  
-  return matchingProduct;
-}
-
+// create a product class based on the data used to store a product in the backend
 class Product {
   id;
   image;
@@ -56,7 +45,7 @@ class Clothing extends Product {
   }
 }
 
-/*
+/* (old manual storing of products)
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -725,12 +714,12 @@ export const products = [
 });
 */
 
-// load products from backend
+// store products from backend in a list
 export let products = [];
 
 export function loadProductsFetch(){
   const promise = fetch('https://supersimplebackend.dev/products').then((response)=>{
-    return response.json(); // gets the json data of the backend 
+    return response.json(); // gets the json product data from the backend 
   }).then((productsData)=>{
     products = productsData.map((productDetails) => {
       if (productDetails.type === 'clothing') {
@@ -739,20 +728,27 @@ export function loadProductsFetch(){
         return new Product(productDetails);
       }
     });
-    console.log('load products');
-   
+    console.log('loaded products');
   }).catch((error) => {
     console.log('Unexpected error. Please try again later.' + error); // use a catch if there is an error 
   }); // fetch creates a promise 
   return promise;
 }
-loadProductsFetch();
-/*
-loadProductsFetch().then(() => {
-  console.log('next step')
-});
-*/
 
+export function getProducts(productId){
+  let matchingProduct;
+
+  products.forEach((product) => {
+    if (product.id == productId) {
+      matchingProduct = product;
+    }
+  });
+  
+  return matchingProduct;
+}
+
+
+/* old method of loading products using xhr instead of fetch. 
 export function loadProducts(fun){
   const xhr = new XMLHttpRequest();
 
@@ -775,3 +771,4 @@ export function loadProducts(fun){
     xhr.send();
   });
 }
+*/

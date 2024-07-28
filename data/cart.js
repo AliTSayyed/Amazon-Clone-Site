@@ -1,5 +1,5 @@
 // function to create a cart from local storage
-export let cart;
+export let cart = [];
 
 // create a list of objects that contain productId and the quanity of product to add to cart
 export let productQuantities = [];
@@ -9,9 +9,9 @@ loadFromStorage();
 export function loadFromStorage() {
   // when add to cart it pressed, items are added to the cart list as objects containing an ID and a quantity. 
   // the cart should contain the local storage cart items, need to parse the JSON string back to a list data. 
-  cart = JSON.parse(localStorage.getItem('cart'));
+  cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-  // if the cart is null then give it this default items
+  /* if the cart is null then give it this default items
   if (!cart) {
     cart = [{
       productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
@@ -22,7 +22,8 @@ export function loadFromStorage() {
       quantity: 1,
       deliveryOptionId: '2'
     }];
-  }
+  } 
+    */
 }
 
 // use local storage to save the cart
@@ -35,8 +36,9 @@ function saveToStorage() {
 export function numberOfCartItems() {
   let numberOfItems = 0;
   cart.forEach((cartItem) => {
-    numberOfItems += cartItem.quantity;
+  numberOfItems += cartItem.quantity;
   });
+  
   return numberOfItems;
 }
 
@@ -57,11 +59,14 @@ export function addToCart(productId) {
 
   // check if product is already in the cart array
   // the cart array variable is from the data/cart.js file
-  cart.forEach((cartItem) => {
+  
+    cart.forEach((cartItem) => {
     if (productId === cartItem.productId) {
       matchingItem = cartItem;
     }
   });
+
+  
 
   // increment the quantity of the item if it is already in the cart
   if (matchingItem) {
@@ -108,8 +113,26 @@ export function updateDeliveryOption(productId, deliveryOptionId) {
   saveToStorage();
 }
 
-// load cart from backend
+// clear the cart after an order is placed
+export function clearCart(){
+  cart = [];
+  saveToStorage();
+}
 
+/* use a fetch to create a loadCart promise instead of a call back
+export function loadCartFetch() {
+  const promise = fetch('https://supersimplebackend.dev/cart').then((response) => {
+       return response.text(); // gets the json cart data from the backend 
+  }).then((cartData) =>{
+    console.log(cartData);
+  }).catch((error) => {
+    console.log('Unexpected error. Please try again later. ' + error); // use a catch if there is an error 
+  }); // fetch creates a promise 
+  return promise;
+}
+*/
+
+/* load cart from backend (doesnt do anything other than print load cart to console but would be used to store the list of products in the cart)
 export function loadCart(fun) {
   const xhr = new XMLHttpRequest();
 
@@ -121,3 +144,4 @@ export function loadCart(fun) {
   xhr.open('GET', 'https://supersimplebackend.dev/cart')
   xhr.send();
 }
+*/

@@ -1,4 +1,4 @@
-import {cart, numberOfCartItems} from "../../data/cart.js";
+import {cart, numberOfCartItems, clearCart} from "../../data/cart.js";
 import { getProducts } from "../../data/products.js";
 import { getDeliveryOption } from "../../data/deliveryOptions.js";
 import {formatCurrency} from "../utils/money.js";
@@ -82,6 +82,7 @@ export function renderPaymentSummary(){
       } catch(error) {
         console.log('Unexpected error, try again later' + error);
       }
+      clearCart();
       window.location.href = 'orders.html' // take customer to orders page after placing order 
     });
 }

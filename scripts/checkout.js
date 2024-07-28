@@ -1,26 +1,16 @@
 import { renderOrderSummary } from "./checkout/orderSummary.js";
 import { renderPaymentSummary } from "./checkout/paymentSummary.js";
 import { loadProductsFetch } from "../data/products.js";
-import { loadCart } from "../data/cart.js";
-//import'../data/cart-class.js'; // runs everything in this file without calling an item to import 
-//import '../data/backend-practice.js';
+//import { loadCartFetch } from "../data/cart.js";
 
 async function loadPage(){ // short cut notation for creating a promise
   try {
     await loadProductsFetch(); // await lets us write asynchronous code like normal code, only works on promises.
-  
-    await new Promise((resolve) => { 
-      loadCart(() => {
-        resolve();
-      });
-    })
-
     renderOrderSummary();
     renderPaymentSummary();
   } catch (error) {
     console.log('Unexpected error. Please try again later.' + error);
   }
-  
 }
 
 loadPage();
