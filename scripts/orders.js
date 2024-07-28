@@ -2,9 +2,8 @@ import { orders } from "../data/orders.js";
 import formatCurrency from "./utils/money.js";
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import { getProducts, loadProductsFetch } from '../data/products.js';
-import { cart } from '../data/cart.js';
+import { cart, addToCart} from '../data/cart.js';
 
-console.log(orders);
 // use fetch to load products then display the orders
 loadProductsFetch().then(() => {
   renderOrderspage();
@@ -83,7 +82,7 @@ function renderOrderspage() {
                 <div class="product-quantity">
                   Quantity: ${product.quantity}
                 </div>
-                <button class="buy-again-button button-primary">
+                <button class="buy-again-button button-primary js-buy-again-button" data-product-id="${product.productId}">
                   <img class="buy-again-icon" src="images/icons/buy-again.png">
                   <span class="buy-again-message">Buy it again</span>
                 </button>
@@ -114,4 +113,14 @@ function renderOrderspage() {
     // update the number of items in the cart after ordering (should be 0)
     document.querySelector('.js-cart-quantity').innerHTML = cart.length;
   }
+
+  // make the buy it again button functional by adding 1 of the same item to the cart, and then redirecting to the cart. 
+  document.querySelectorAll('.js-buy-again-button')
+    .forEach((button) => {
+      const productId = button.dataset.productId;
+      button.addEventListener('click', () => {
+        addToCart(productId);
+        window.location.href = 'checkout.html' // take customer back to checkout page
+      });
+    });
 }
