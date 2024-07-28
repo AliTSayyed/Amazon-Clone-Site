@@ -119,6 +119,23 @@ export function clearCart(){
   saveToStorage();
 }
 
+export function updateFromCart(productId){
+  let matchingItem;
+  // Find the product in the cart 
+  cart.forEach((cartItem) => {
+    if (productId === cartItem.productId) {
+      matchingItem = cartItem;
+    }
+  });
+  // update the quantity by 1
+  matchingItem.quantity++;
+  
+  // save updated cart to local storage
+  saveToStorage();
+  return matchingItem.quantity;
+}
+
+
 /* use a fetch to create a loadCart promise instead of a call back
 export function loadCartFetch() {
   const promise = fetch('https://supersimplebackend.dev/cart').then((response) => {

@@ -1,5 +1,5 @@
 // creating the checkout page 
-import { cart, removeFromCart, updateDeliveryOption, numberOfCartItems } from '../../data/cart.js'; // named export
+import { cart, removeFromCart, updateDeliveryOption, numberOfCartItems, updateFromCart } from '../../data/cart.js'; // named export
 import { getProducts } from '../../data/products.js';
 import { formatCurrency } from '../utils/money.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'; // default export does not need {}
@@ -42,9 +42,9 @@ export function renderOrderSummary() {
             </div>
             <div class="product-quantity js-product-quantity-${matchingProduct.id}">
               <span>
-                Quantity: <span class="quantity-label">${cartItem.quantity}</span>
+                Quantity: <span class="quantity-label js-quantity-label">${cartItem.quantity}</span>
               </span>
-              <span class="update-quantity-link link-primary">
+              <span class="update-quantity-link link-primary js-update-link" data-product-id="${matchingProduct.id}">
                 Update
               </span>
               <span class="delete-quantity-link link-primary js-delete-link js-delete-link-${matchingProduct.id}" data-product-id="${matchingProduct.id}">
@@ -140,4 +140,19 @@ export function renderOrderSummary() {
             `;
   }
   headerItemCount();
+
+  // use the dom to make all update links functional. Increases the quantity by 1 when pressed. 
+  document.querySelectorAll('.js-update-link')
+    .forEach((link) => {
+      const productId = link.dataset.productId;
+      link.addEventListener('click', () => {
+        const newQuantity = updateFromCart(productId);
+         // update the payment summary when an item is deleted from the cart.
+         renderPaymentSummary();
+         // Update how many items are in the cart at the top of the checkout 
+         headerItemCount();
+         // update the quantity label next to the update link
+         document.querySelector('.js-quantity-label').innerHTML = newQuantity;
+      });
+    });
 }
