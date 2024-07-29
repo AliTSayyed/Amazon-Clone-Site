@@ -23,7 +23,7 @@ if (cart === null || cart.length === 0) {
 export function emptyCheckout() {
   // set middle header to 0
   document.querySelector('.js-checkout-header-middle-section')
-    .innerHTML = ` Checkout (<a class="return-to-home-link" href="amazon.html">0 items</a>) `;
+    .innerHTML = `Checkout (<a class="return-to-home-link" href="amazon.html">0 items</a>)`;
   // remove current js-main html from checkout.html
   document.querySelector('.js-main').innerHTML = ``;
   let emptyOrdersHTML = `

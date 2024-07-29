@@ -1,6 +1,6 @@
 // Importing variables without needing to create a script tag in the html. '../' refers to exiting the current file and going to the main folder. 
 // Importing modules helps avoid naming conflicts.
-import { cart, addToCart, productQuantities, numberOfCartItems} from '../data/cart.js';
+import { addToCart, productQuantities, numberOfCartItems} from '../data/cart.js';
 import { products, loadProductsFetch } from '../data/products.js';
 // import { formatCurrency } from './utils/money.js';
 

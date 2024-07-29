@@ -2,7 +2,7 @@ import { orders } from "../data/orders.js";
 import formatCurrency from "./utils/money.js";
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import { getProducts, loadProductsFetch } from '../data/products.js';
-import { cart, addToCart} from '../data/cart.js';
+import { cart, addToCart, numberOfCartItems} from '../data/cart.js';
 
 // use fetch to load products then display the orders
 loadProductsFetch().then(() => {
@@ -25,7 +25,7 @@ function renderOrderspage() {
       </div>
     `;
     document.querySelector('.js-main').innerHTML = emptyOrdersHTML;
-    document.querySelector('.js-cart-quantity').innerHTML = cart.length;
+    document.querySelector('.js-cart-quantity').innerHTML = numberOfCartItems();
   } else { // show orders if orders are placed
     document.querySelector('.js-main').innerHTML = `
       <div class="page-title">Your Orders</div>
@@ -89,7 +89,7 @@ function renderOrderspage() {
               </div>
 
               <div class="product-actions">
-                <a href="tracking.html">
+                <a href="tracking.html?orderId=${order.id}&productId=${product.productId}">
                   <button class="track-package-button button-secondary">
                     Track package
                   </button>
@@ -111,7 +111,7 @@ function renderOrderspage() {
     document.querySelector('.js-order-grid').innerHTML = ordersHTML;
 
     // update the number of items in the cart after ordering (should be 0)
-    document.querySelector('.js-cart-quantity').innerHTML = cart.length;
+    document.querySelector('.js-cart-quantity').innerHTML = numberOfCartItems();
   }
 
   // make the buy it again button functional by adding 1 of the same item to the cart, and then redirecting to the cart. 
