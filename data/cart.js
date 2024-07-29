@@ -4,6 +4,7 @@ export let cart = [];
 // create a list of objects that contain productId and the quanity of product to add to cart
 export let productQuantities = [];
 
+// load the cart. 
 loadFromStorage();
 
 export function loadFromStorage() {

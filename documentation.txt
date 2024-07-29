@@ -1,0 +1,73 @@
+1. Products are retrieved from the backend using the api https://supersimplebackend.dev/products.
+2. The cart is not stored in the backend. It is stored in local storage using: 
+function saveToStorage() {
+  localStorage.setItem('cart', JSON.stringify(cart));
+} 
+to save the item to the cart var. And then it is loaded using:
+export function loadFromStorage() {
+cart = JSON.parse(localStorage.getItem('cart')) || [];
+}
+
+the cart looks like this:
+  cart = [{
+      productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
+      quantity: 2,
+      deliveryOptionId: '1'
+    }...]
+
+The files backend-practice.js, cart-class.js, and cart-oop.js are NOT used for making the site. 
+
+3. Delivery options is a list of 3 objects that give the 3 options for delivery:
+export const deliveryOptions = [{
+  id: '1',
+  deliveryDays: 7,
+  priceCents: 0
+},{
+  id: '2',
+  deliveryDays: 3,
+  priceCents: 499
+}, {
+  id: '3',
+  deliveryDays: 1,
+  priceCents: 999
+}];
+
+4. Orders are sent to the backend using a post method like so:
+document.querySelector('.js-place-order')
+    .addEventListener('click', async () => {
+      try {
+        const response = await fetch('https://supersimplebackend.dev/orders', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+
+          },
+          body: JSON.stringify({
+            cart: cart
+          })
+        }
+        );
+        const order = await response.json();
+        addOrder(order);
+      } catch (error) {
+        console.log('Unexpected error, try again later' + error);
+      }
+      clearCart();
+      window.location.href = 'orders.html' // take customer to orders page after placing order 
+    });
+The orders response is saved like so:
+export const orders = JSON.parse(localStorage.getItem('orders')) || [];
+
+export function addOrder(order){
+  orders.unshift(order); // puts order at the front of the array
+  saveToStorage();
+}
+
+function saveToStorage() {
+  localStorage.setItem('orders', JSON.stringify(orders));
+}
+
+5. To generate the html, find the correct container, add a class, then use javaScript to write html code. 
+6. Use the DOM to post that html code using .innerHTML = ...
+7. Make the site functional by using the DOM with event listeners. 
+

@@ -12,6 +12,7 @@ export const deliveryOptions = [{
   priceCents: 999
 }];
 
+// use this function to get the delivery option from the cart 
 export function getDeliveryOption(deliveryOptionId){
   let deliveryOption;
 
