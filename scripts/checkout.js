@@ -5,10 +5,25 @@ import { cart } from "../data/cart.js";
 //import { loadCartFetch } from "../data/cart.js";
 
 // load empty cart and go back to shopping if cart is empty
-if (cart === null || cart.length === 0){
+if (cart === null || cart.length === 0) {
+  emptyCheckout();
+} else { // show order and payment summary if cart is not empty
+  async function loadPage() { // short cut notation for creating a promise
+    try {
+      await loadProductsFetch(); // await lets us write asynchronous code like normal code, only works on promises.
+      renderOrderSummary();
+      renderPaymentSummary();
+    } catch (error) {
+      console.log('Unexpected error. Please try again later.' + error);
+    }
+  }
+  loadPage();
+}
+
+export function emptyCheckout() {
   // set middle header to 0
   document.querySelector('.js-checkout-header-middle-section')
-  .innerHTML = ` Checkout (<a class="return-to-home-link" href="amazon.html">0 items</a>) `;
+    .innerHTML = ` Checkout (<a class="return-to-home-link" href="amazon.html">0 items</a>) `;
   // remove current js-main html from checkout.html
   document.querySelector('.js-main').innerHTML = ``;
   let emptyOrdersHTML = `
@@ -22,21 +37,10 @@ if (cart === null || cart.length === 0){
     </div>
   </div>
 `;
-// update js-main with the empty cart html
-document.querySelector('.js-main').innerHTML = emptyOrdersHTML;
-} else { // show order and payment summary if cart is not empty
-  async function loadPage(){ // short cut notation for creating a promise
-  try {
-    await loadProductsFetch(); // await lets us write asynchronous code like normal code, only works on promises.
-    renderOrderSummary();
-    renderPaymentSummary();
-  } catch (error) {
-    console.log('Unexpected error. Please try again later.' + error);
-  }
+  // update js-main with the empty cart html
+  document.querySelector('.js-main').innerHTML = emptyOrdersHTML;
 }
-loadPage();
-}
- 
+
 
 /* IGNORE
 // Use Promise.all to run multiple promises before moving onto the code you want to run

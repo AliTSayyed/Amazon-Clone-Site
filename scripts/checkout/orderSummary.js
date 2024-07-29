@@ -5,6 +5,7 @@ import { formatCurrency } from '../utils/money.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'; // default export does not need {}
 import { deliveryOptions, getDeliveryOption} from '../../data/deliveryOptions.js';
 import { renderPaymentSummary } from './paymentSummary.js';
+import { emptyCheckout } from '../checkout.js';
 
 // run all the code with this function
 export function renderOrderSummary() {
@@ -109,10 +110,15 @@ export function renderOrderSummary() {
         const contianer = document.querySelector(`.js-cart-item-container-${productId}`);
         contianer.remove();
         
-        // update the payment summary when an item is deleted from the cart.
-        renderPaymentSummary();
-        // Update how many items are in the cart at the top of the checkout 
-        headerItemCount();
+        // if the last item in the cart was removed, then show the empty checkout page. 
+        if (cart === null || cart.length === 0){
+          emptyCheckout();
+          } else {
+            // update the payment summary when an item is deleted from the cart.
+            renderPaymentSummary();
+            // Update how many items are in the cart at the top of the checkout 
+            headerItemCount();
+        } 
       });
     });
 
