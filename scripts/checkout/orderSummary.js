@@ -3,7 +3,7 @@ import { cart, removeFromCart, updateDeliveryOption, numberOfCartItems, updateFr
 import { getProducts } from '../../data/products.js';
 import { formatCurrency } from '../utils/money.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'; // default export does not need {}
-import { deliveryOptions, getDeliveryOption} from '../../data/deliveryOptions.js';
+import { deliveryOptions, getDeliveryOption } from '../../data/deliveryOptions.js';
 import { renderPaymentSummary } from './paymentSummary.js';
 import { emptyCheckout } from '../checkout.js';
 
@@ -109,16 +109,16 @@ export function renderOrderSummary() {
         // first remove item from cart, then remove item from page using the dom. Remove the div that starts the html. 
         const contianer = document.querySelector(`.js-cart-item-container-${productId}`);
         contianer.remove();
-        
+
         // if the last item in the cart was removed, then show the empty checkout page. 
-        if (cart === null || cart.length === 0){
+        if (cart === null || cart.length === 0) {
           emptyCheckout();
-          } else {
-            // update the payment summary when an item is deleted from the cart.
-            renderPaymentSummary();
-            // Update how many items are in the cart at the top of the checkout 
-            headerItemCount();
-        } 
+        } else {
+          // update the payment summary when an item is deleted from the cart.
+          renderPaymentSummary();
+          // Update how many items are in the cart at the top of the checkout 
+          headerItemCount();
+        }
       });
     });
 
@@ -137,10 +137,10 @@ export function renderOrderSummary() {
 
   // use the dom to update the amount of items in the checkout 
   function headerItemCount() {
-  const numOfItems = numberOfCartItems();
+    const numOfItems = numberOfCartItems();
 
-  document.querySelector('.js-checkout-header-middle-section')
-    .innerHTML = `
+    document.querySelector('.js-checkout-header-middle-section')
+      .innerHTML = `
       Checkout (<a class="return-to-home-link"
             href="amazon.html">${numOfItems} items</a>)
             `;
@@ -153,12 +153,12 @@ export function renderOrderSummary() {
       const productId = link.dataset.productId;
       link.addEventListener('click', () => {
         const newQuantity = updateFromCart(productId);
-         // update the payment summary when an item is deleted from the cart.
-         renderPaymentSummary();
-         // Update how many items are in the cart at the top of the checkout 
-         headerItemCount();
-         // update the quantity label next to the update link
-         document.querySelector('.js-quantity-label').innerHTML = newQuantity;
+        // update the payment summary when an item is deleted from the cart.
+        renderPaymentSummary();
+        // Update how many items are in the cart at the top of the checkout 
+        headerItemCount();
+        // update the quantity label next to the update link
+        document.querySelector('.js-quantity-label').innerHTML = newQuantity;
       });
     });
 }

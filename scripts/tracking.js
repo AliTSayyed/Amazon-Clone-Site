@@ -32,7 +32,7 @@ function renderTrackingPage() {
       dateString = dayjs(product.estimatedDeliveryTime).format('MMMM, D');
     }
   });
- 
+
   // display the correct tracking details based on the order and product that was selected 
   const trackingHTML = `
     <a class="back-to-orders-link link-primary" href="orders.html">
@@ -99,7 +99,7 @@ function renderTrackingPage() {
     progressBar.style.width = '100%';
     // Check progress every 100ms
     const interval = setInterval(() => {
-      updateLabels(); 
+      updateLabels();
       // Continue checking while the width is less than 100% 
       const currentWidth = parseFloat(getComputedStyle(progressBar).width);
       if (currentWidth === progressBar.parentElement.clientWidth) { // stop when progress bar is at 100%

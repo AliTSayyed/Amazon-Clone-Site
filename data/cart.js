@@ -11,7 +11,7 @@ export function loadFromStorage() {
   // the cart should contain the local storage cart items, need to parse the JSON string back to a list data. 
   cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-  /* if the cart is null then give it this default items
+  /* (IGNORE) if the cart is null then give it this default items
   if (!cart) {
     cart = [{
       productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
@@ -22,8 +22,7 @@ export function loadFromStorage() {
       quantity: 1,
       deliveryOptionId: '2'
     }];
-  } 
-    */
+  } */
 }
 
 // use local storage to save the cart
@@ -36,9 +35,9 @@ function saveToStorage() {
 export function numberOfCartItems() {
   let numberOfItems = 0;
   cart.forEach((cartItem) => {
-  numberOfItems += cartItem.quantity;
+    numberOfItems += cartItem.quantity;
   });
-  
+
   return numberOfItems;
 }
 
@@ -50,7 +49,7 @@ export function addToCart(productId) {
 
   // determine the quantity to add based on what the customer selected for each product. 
   productQuantities.forEach((product) => {
-    if (product.productId === productId){
+    if (product.productId === productId) {
       quantityProduct = product.quantityToAdd;
     } else {
       quantityProduct = 1;
@@ -59,23 +58,23 @@ export function addToCart(productId) {
 
   // check if product is already in the cart array
   // the cart array variable is from the data/cart.js file
-  
-    cart.forEach((cartItem) => {
+
+  cart.forEach((cartItem) => {
     if (productId === cartItem.productId) {
       matchingItem = cartItem;
     }
   });
 
-  
+
 
   // increment the quantity of the item if it is already in the cart
   if (matchingItem) {
-    matchingItem.quantity += Number (quantityProduct) || 1;
+    matchingItem.quantity += Number(quantityProduct) || 1;
   } else {
     // if the product is not in the cart, add it. Must use a Number type cast to avoid string concatenation. 
     cart.push({
       productId: productId,
-      quantity: Number (quantityProduct) || 1,
+      quantity: Number(quantityProduct) || 1,
       deliveryOptionId: '1'
     });
   }
@@ -114,12 +113,12 @@ export function updateDeliveryOption(productId, deliveryOptionId) {
 }
 
 // clear the cart after an order is placed
-export function clearCart(){
+export function clearCart() {
   cart = [];
   saveToStorage();
 }
 
-export function updateFromCart(productId){
+export function updateFromCart(productId) {
   let matchingItem;
   // Find the product in the cart 
   cart.forEach((cartItem) => {
@@ -129,14 +128,14 @@ export function updateFromCart(productId){
   });
   // update the quantity by 1
   matchingItem.quantity++;
-  
+
   // save updated cart to local storage
   saveToStorage();
   return matchingItem.quantity;
 }
 
 
-/* use a fetch to create a loadCart promise instead of a call back
+/* (IGNORE) use a fetch to create a loadCart promise instead of a call back
 export function loadCartFetch() {
   const promise = fetch('https://supersimplebackend.dev/cart').then((response) => {
        return response.text(); // gets the json cart data from the backend 
@@ -149,7 +148,7 @@ export function loadCartFetch() {
 }
 */
 
-/* load cart from backend (doesnt do anything other than print load cart to console but would be used to store the list of products in the cart)
+/* load cart from backend (backend doesnt do anything other than print "load cart" to console but would be used to store the list of products in the cart)
 export function loadCart(fun) {
   const xhr = new XMLHttpRequest();
 

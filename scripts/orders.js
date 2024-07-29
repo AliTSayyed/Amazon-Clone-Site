@@ -2,7 +2,7 @@ import { orders } from "../data/orders.js";
 import formatCurrency from "./utils/money.js";
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import { getProducts, loadProductsFetch } from '../data/products.js';
-import { cart, addToCart, numberOfCartItems} from '../data/cart.js';
+import { cart, addToCart, numberOfCartItems } from '../data/cart.js';
 
 // use fetch to load products then display the orders
 loadProductsFetch().then(() => {
@@ -30,11 +30,11 @@ function renderOrderspage() {
     document.querySelector('.js-main').innerHTML = `
       <div class="page-title">Your Orders</div>
       <div class="orders-grid js-order-grid">`;
-  
+
     // create the html header for each order in the orders list. 
     let ordersHTML = ``;
     orders.forEach((order) => {
-      
+
       const dateString = dayjs(order.orderTime).format('MMMM D');
 
       ordersHTML += `
@@ -61,7 +61,7 @@ function renderOrderspage() {
 
       // create the html body for each product in each order 
       order.products.forEach((product) => {
-       
+
         // get the product information from the backend to display on the page
         const orderedProduct = getProducts(product.productId);
         // order's product array has quantity and estimated delivery 

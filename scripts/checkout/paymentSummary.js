@@ -1,11 +1,11 @@
-import {cart, numberOfCartItems, clearCart} from "../../data/cart.js";
+import { cart, numberOfCartItems, clearCart } from "../../data/cart.js";
 import { getProducts } from "../../data/products.js";
 import { getDeliveryOption } from "../../data/deliveryOptions.js";
-import {formatCurrency} from "../utils/money.js";
+import { formatCurrency } from "../utils/money.js";
 import { addOrder } from "../../data/orders.js";
 
 // put all the code in a function
-export function renderPaymentSummary(){
+export function renderPaymentSummary() {
   let productPriceCents = 0;
   let shippingPriceCents = 0;
   cart.forEach((cartItem) => {
@@ -64,13 +64,13 @@ export function renderPaymentSummary(){
     .innerHTML = paymentSummaryHTML;
 
   document.querySelector('.js-place-order')
-    .addEventListener('click', async () =>{
+    .addEventListener('click', async () => {
       try {
         const response = await fetch('https://supersimplebackend.dev/orders', {
-          method:'POST',
-          headers:{
-            'Content-Type' : 'application/json'
-  
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+
           },
           body: JSON.stringify({
             cart: cart
@@ -79,7 +79,7 @@ export function renderPaymentSummary(){
         );
         const order = await response.json();
         addOrder(order);
-      } catch(error) {
+      } catch (error) {
         console.log('Unexpected error, try again later' + error);
       }
       clearCart();

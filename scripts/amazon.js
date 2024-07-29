@@ -1,6 +1,6 @@
 // Importing variables without needing to create a script tag in the html. '../' refers to exiting the current file and going to the main folder. 
 // Importing modules helps avoid naming conflicts.
-import { addToCart, productQuantities, numberOfCartItems} from '../data/cart.js';
+import { addToCart, productQuantities, numberOfCartItems } from '../data/cart.js';
 import { products, loadProductsFetch } from '../data/products.js';
 // import { formatCurrency } from './utils/money.js';
 
@@ -8,7 +8,7 @@ import { products, loadProductsFetch } from '../data/products.js';
 // loadProducts(renderProductsGrid);
 
 // use fetch to load page 
-loadProductsFetch().then(()=>{
+loadProductsFetch().then(() => {
   renderProductsGrid();
 });
 
@@ -78,9 +78,9 @@ function renderProductsGrid() {
   document.querySelector('.js-products-grid').innerHTML = productsHTMl;
 
   // initial case of default items set in cart, make the cart show how many items are already there. 
-  const numOfItems =  numberOfCartItems();
+  const numOfItems = numberOfCartItems();
   document.querySelector('.js-cart-quantity').innerHTML = numOfItems;
-  
+
   function updateCartQuantity() {
     // update the amount of items displyed on the cart icon (top right of the page)
     let cartQuantity = numberOfCartItems();
@@ -105,22 +105,35 @@ function renderProductsGrid() {
 
   //use the dom to add multiple quantities of an item to the cart when using the select element
   document.querySelectorAll('.js-product-quantity-selector')
-  .forEach((selector) => {
-    selector.addEventListener('change', (quantity) => {
-      const productId = selector.dataset.productId; 
-      const quantityToAdd = quantity.target.value;
-      // if the productQuantities list is empty, add the first selected quantitiy item to the list. 
-      if (productQuantities.length === 0){
-        productQuantities.push({productId, quantityToAdd});
-      }
-      // for each item on the list of productQuantities, update the new quantity to add or add the new product quanitity to the list  
-      productQuantities.forEach((product) => {
-        if (product.productId === productId) {
-          product.quantityToAdd = quantityToAdd;
-        } else {
-          productQuantities.push({productId, quantityToAdd});
+    .forEach((selector) => {
+      selector.addEventListener('change', (quantity) => {
+        const productId = selector.dataset.productId;
+        const quantityToAdd = quantity.target.value;
+        // if the productQuantities list is empty, add the first selected quantitiy item to the list. 
+        if (productQuantities.length === 0) {
+          productQuantities.push({ productId, quantityToAdd });
         }
+        // for each item on the list of productQuantities, update the new quantity to add or add the new product quanitity to the list  
+        productQuantities.forEach((product) => {
+          if (product.productId === productId) {
+            product.quantityToAdd = quantityToAdd;
+          } else {
+            productQuantities.push({ productId, quantityToAdd });
+          }
+        });
       });
+    });
+
+  // make the search bar functional
+  const searchInput = document.querySelector('.js-search-bar');
+  searchInput.addEventListener("input", text => {
+    let value = text.target.value; // value is the pressed key
+    // hide each product displayed on the product grid whose product name element is not in the search input.
+    const productsGrid = document.querySelectorAll('.product-container');
+    productsGrid.forEach((product) => {
+      const productName = product.querySelector('.product-name').textContent.toLowerCase(); // Get the product name and convert to lowercase
+      const isVisible = productName.includes(value);
+      product.classList.toggle('hide', !isVisible);
     });
   });
 
